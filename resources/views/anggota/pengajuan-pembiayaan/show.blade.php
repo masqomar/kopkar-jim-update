@@ -93,16 +93,16 @@ Detail Pengajuan Pembiayaan
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Kode</th>
                         <th>Tgl Bayar</th>
+                        <th>Keterangan</th>
                         <th>Nominal</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($setoran as $setor)
                     <tr>
-                        <td>{{ $setor->kode_pembiayaan}}</td>
                         <td>{{ $setor->tgl_bayar}}</td>
+                        <td>{{ $setor->keterangan_setor}}</td>
                         <td>@rupiah( $setor->setor_bayar )</td>
                     </tr>
                     @endforeach

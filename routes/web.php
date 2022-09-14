@@ -13,7 +13,10 @@ use App\Http\Controllers\Admin\SimpananSukarelaController;
 use App\Http\Controllers\Admin\SimpananWajibController;
 use App\Http\Controllers\Admin\TopUpAnggotaController;
 use App\Http\Controllers\Anggota\BayarController;
+use App\Http\Controllers\Anggota\PasswordController;
 use App\Http\Controllers\Anggota\PembiayaanController;
+use App\Http\Controllers\Anggota\PinController;
+use App\Http\Controllers\Anggota\ProfilController as AnggotaProfilController;
 use App\Http\Controllers\Anggota\RiwayatTransaksiController;
 use App\Http\Controllers\Anggota\SimpananWajibController as AnggotaSimpananWajibController;
 use App\Http\Controllers\Anggota\SimpananSukarelaController as AnggotaSimpananSukarelaController;
@@ -56,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('kas-keluar', KasKeluarController::class);
     Route::resource('pembiayaan', PembiayaanAnggotaController::class);
     Route::resource('angsuran', AngsuranController::class);
+    Route::get('angsuran/detail/{id}', [AngsuranController::class, 'detail'])->name('admin.angsuran.detail');
     Route::resource('topup-anggota', TopUpAnggotaController::class);
     Route::resource('gallery', GalleryController::class);
 
@@ -108,6 +112,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('pengajuan-pembiayaan/store', [PembiayaanController::class, 'store'])->name('anggota.pengajuan-pembiayaan.store');
     Route::get('pengajuan-pembiayaan/show/{id}', [PembiayaanController::class, 'show'])->name('anggota.pengajuan-pembiayaan.show');
 
+    Route::get('profile', [AnggotaProfilController::class, 'index'])->name('anggota.profile.index');
+
+    Route::get('password', [PasswordController::class, 'edit'])->name('anggota.password.edit');
+    Route::patch('password', [PasswordController::class, 'update'])->name('anggota.password.update');
+
+    Route::get('pin', [PinController::class, 'edit'])->name('anggota.pin.edit');
+    Route::patch('pin', [PinController::class, 'update'])->name('anggota.pin.update');
     //Mitra
     Route::get('tarik', [TarikSaldoController::class, 'index'])->name('mitra.tarik.index');
 

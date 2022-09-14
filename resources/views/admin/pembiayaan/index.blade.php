@@ -57,9 +57,6 @@
                                 <a href="{{route('pembiayaan.show', $pengajuan->id)}}" class="btn btn-info btn-xs">
                                     Detail
                                 </a>
-                                <a href="" class="btn btn-warning btn-xs">
-                                    Angsuran
-                                </a>
                                 @endif
                             </td>
                         </tr>

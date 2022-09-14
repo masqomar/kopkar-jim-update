@@ -46,7 +46,7 @@
                                 @endcan
                                 @endif
                                 @if ($cicilan->status_pembiayaan == 'Lunas')
-                                <a href="{{route('angsuran.show', $cicilan->id)}}" class="btn btn-info btn-xs">
+                                <a href="{{route('admin.angsuran.detail', $cicilan->id)}}" class="btn btn-info btn-xs">
                                     Detail
                                 </a>
                                 @endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PembiayaanAnggota;
 use App\Models\PengajuanPembiayaan;
+use App\Models\TransaksiPembiayaanAnggota;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,11 +31,11 @@ class PembiayaanAnggotaController extends Controller
     public function show($id)
     {
         $pengajuanID = PengajuanPembiayaan::where('id', $id)->get();
-        $kode_pembiayaan = PengajuanPembiayaan::select('kode_pembiayaan')->where('id', $id)->get();
-        $pembiayaanAnggotaID = PembiayaanAnggota::where('kode_pembiayaan', $kode_pembiayaan)->get();
+        $kode_pembiayaan = PengajuanPembiayaan::select('kode_pembiayaan')->where('id', $id)->get()->first()->kode_pembiayaan;
+        $pembiayaanAnggotaID = TransaksiPembiayaanAnggota::where('kode_pembiayaan', $kode_pembiayaan)->get();
 
         // dd($pembiayaanAnggotaID);
-        return view('admin.pembiayaan.show', compact('pengajuanID'));
+        return view('admin.pembiayaan.show', compact('pengajuanID', 'pembiayaanAnggotaID'));
     }
 
     public function edit($id)

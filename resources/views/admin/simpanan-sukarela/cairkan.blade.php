@@ -28,13 +28,8 @@
                         @error('no_anggota') <span class="text-danger">{{$message}}</span> @enderror
                     </div>
                     <div class="form-group">
-                        <label>Simpanan</label>
-                        <input type="text" class="form-control @error('produk_id') is-invalid @enderror" placeholder="Nama simpanan" name="produk_id" value="{{$transaksiSimpananAnggota->produkKoperasi->nama_produk ?? old('produk_id')}}" readonly>
-                        @error('produk_id') <span class="text-danger">{{$message}}</span> @enderror
-                    </div>
-                    <div class="form-group">
                         <label>Nominal</label>
-                        <input type="number" class="form-control @error('nominal_tarik') is-invalid @enderror" placeholder="Nominal" name="nominal_tarik" value="{{$transaksiSimpananAnggota->nominal_tarik ?? old('nominal_tarik')}}" readonly>
+                        <input type="number" class="form-control @error('nominal_tarik') is-invalid @enderror" placeholder="Nominal" name="nominal_tarik" value="{{$transaksiSimpananAnggota->nominal_tarik ?? old('nominal_tarik')}}" required>
                         @error('nominal_tarik') <span class="text-danger">{{$message}}</span> @enderror
                     </div>
                     <table class="table">

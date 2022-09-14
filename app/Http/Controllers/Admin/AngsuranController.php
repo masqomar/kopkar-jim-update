@@ -43,14 +43,9 @@ class AngsuranController extends Controller
             ->where('kode_pembiayaan', $pembiayaanID->kode_pembiayaan)
             ->get()->first();
 
-        $cicilan = TransaksiPembiayaanAnggota::select('kode_pembiayaan', DB::raw('SUM(setor_bayar) as total_cicilan'))
-            ->where('kode_pembiayaan', $pembiayaanID->kode_pembiayaan)
-            ->groupBy('kode_pembiayaan')
-            ->get()
-            ->first()
-            ->total_cicilan;
+        $cicilan = TransaksiPembiayaanAnggota::where('kode_pembiayaan', $pembiayaanID->kode_pembiayaan)->groupBy('kode_pembiayaan')->sum('setor_bayar');
 
-        // dd($sisaCicilan);
+        // dd($cicilan);
         return view('admin.angsuran.show', compact('pembiayaanID', 'pembiayaan', 'cicilan'));
     }
 
@@ -60,8 +55,11 @@ class AngsuranController extends Controller
             'kode_pembiayaan' => 'required|string',
             'user_id' => 'required|numeric',
             'setor_bayar' => 'required|numeric',
-            'keterangan_setor' => 'required|string|max:255'
+            'keterangan_setor' => 'required|string|max:255',
+            'pelunasan' => 'required|string|max:255'
         ]);
+
+        $pelunasan = $request->pelunasan;
 
         TransaksiPembiayaanAnggota::create([
             'kode_pembiayaan' => $request->kode_pembiayaan,
@@ -71,7 +69,17 @@ class AngsuranController extends Controller
             'tgl_bayar' => Carbon::now()
         ]);
 
+        PembiayaanAnggota::where('kode_pembiayaan', $request->kode_pembiayaan)
+            ->update([
+                'status_pembiayaan' => $pelunasan
+            ]);
+
         return redirect()->route('angsuran.index')
             ->with('success_message', 'Berhasil menambahkan angsuran baru');
+    }
+
+    public function detail($id)
+    {
+        return view('admin.angsuran.detail');
     }
 }

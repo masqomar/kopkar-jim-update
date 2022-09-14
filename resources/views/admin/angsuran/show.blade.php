@@ -61,6 +61,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Pelunasan?</label>
+                        <select name="pelunasan" class="form-control @error('pelunasan') is-invalid @enderror">
+                            <option value="Belum Lunas">Angsuran</option>
+                            <option value="Lunas">Pelunasan</option>
+                        </select>
+                        @error('pelunasan') <span class="text-danger">{{$message}}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label>Keterangan</label>
                         <textarea class="form-control @error('keterangan_setor') is-invalid @enderror" placeholder="Keterangan" name="keterangan_setor" required></textarea>
                         @error('keterangan_setor') <span class="text-danger">{{$message}}</span> @enderror

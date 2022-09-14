@@ -41,24 +41,33 @@
                             <td>@rupiah($pengajuan->pembiayaanAnggota->jumlah_pembiayaan)</td>
                         </tr>
                         <tr>
-                            <th scope="col">Nominal Pembiayaan</th>
+                            <th scope="col">Tanggal Pembiayaan</th>
                             <td>{{$pengajuan->pembiayaanAnggota->tgl_pembiayaan}}</td>
                         </tr>
+                    </tbody>
+                </table>
+                <br>
+                <table class="table table-hover table-bordered table-stripped" id="example2">
+                    <thead>
                         <tr>
-                            <th scope="col">Nominal Pembiayaan</th>
-                            <td>{{$pengajuan->pembiayaanAnggota->tgl_pembiayaan}}</td>
+                            <th>No.</th>
+                            <th>Tanggal Bayar</th>
+                            <th>Nominal</th>
+                            <th>Keterangan</th>
                         </tr>
-
-
-                        <td>{{$pengajuan->pembiayaanAnggota->jangka_waktu}}</td>
-                        <td>{{$pengajuan->pembiayaanAnggota->bayar_perbulan}}</td>
-                        <td>{{$pengajuan->pembiayaanAnggota->total_bayar}}</td>
-                        <td>{{$pengajuan->pembiayaanAnggota->tgl_selesai}}</td>
-                        <td>{{$pengajuan->pembiayaanAnggota->status_pembiayaan}}</td>
-                        <td>{{$pengajuan->pembiayaanAnggota->keterangan}}</td>
+                    </thead>
+                    <tbody>
+                        @foreach ($pembiayaanAnggotaID as $key => $setor)
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{ $setor->tgl_bayar}}</td>
+                            <td>@rupiah( $setor->setor_bayar )</td>
+                            <td>{{ $setor->keterangan_setor}}</td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
+                @endforeach
             </div>
         </div>
     </div>

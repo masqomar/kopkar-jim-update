@@ -44,7 +44,7 @@
                         <tr>
                             <th scope="col">Bukti Transfer</th>
                             <td>
-                                <img src="{{ \Storage::url($detailPenarikan->bukti_transfer) }}" class="rounded" style="width: 150px">
+                                <img src="{{ asset('/images/bukti_transfer/'.$detailPenarikan->bukti_transfer) }}" class="rounded" style="width: 150px">
                             </td>
                         </tr>
                     </tbody>

@@ -12,6 +12,7 @@ use App\Models\TransaksiSimpananAnggota;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SimpananSukarelaController extends Controller
@@ -72,27 +73,34 @@ class SimpananSukarelaController extends Controller
             'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $image = $request->file('bukti_transfer');
-        $bukti_transfer = $image->storeAs('public/bukti_transfer', $image->hashName());
+
 
         $status = $request->status;
         $id = $request->transaksiID;
 
-        TransaksiSimpananAnggota::where('id', $id)
-            ->update([
-                'status' => $status,
-                'bukti_transfer' => $bukti_transfer
-            ]);
-        AnggotaTransaction::create([
-            'user_id' => $request->user_id,
-            'kredit'  => $request->nominal_tarik,
-            'debit'  => 0,
-            'tipe'  => 'tarik',
-            'jenis'  => 'keluar',
-            'tanggal'  => Carbon::now(),
-            'metode'  => 'Penarikan dari teller',
-            'deskripsi'  => 'Penarikan simpanan sukarela'
-        ]);
+        DB::transaction(
+            function () use ($request, $status, $id) {
+
+                $bukti_transfer = time() . '.' . $request->bukti_transfer->hashName();
+                $request->bukti_transfer->move(public_path('images/bukti_transfer'), $bukti_transfer);
+
+                TransaksiSimpananAnggota::where('id', $id)
+                    ->update([
+                        'status' => $status,
+                        'bukti_transfer' => $bukti_transfer
+                    ]);
+                AnggotaTransaction::create([
+                    'user_id' => $request->user_id,
+                    'kredit'  => $request->nominal_tarik,
+                    'debit'  => 0,
+                    'tipe'  => 'tarik',
+                    'jenis'  => 'keluar',
+                    'tanggal'  => Carbon::now(),
+                    'metode'  => 'Penarikan dari teller',
+                    'deskripsi'  => 'Penarikan simpanan sukarela'
+                ]);
+            }
+        );
 
         // dd($cek);
         return redirect()->route('users.index')

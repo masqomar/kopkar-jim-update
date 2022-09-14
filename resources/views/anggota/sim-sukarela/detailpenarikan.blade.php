@@ -32,7 +32,7 @@ Detail Penarikan Simpanan Sukarela
                         <td>{{ $penarikanSukarela->tgl_tarik}}</td>
                         <td>@rupiah ($penarikanSukarela->nominal_tarik)</td>
                         <td>
-                            <img src="{{ \Storage::url($penarikanSukarela->bukti_transfer) }}" class="rounded" style="width: 50px">
+                            <img src="{{ asset('/images/bukti_transfer/'.$penarikanSukarela->bukti_transfer) }}" class="rounded" style="width: 50px">
                         </td>
                     </tr>
                     @endif
