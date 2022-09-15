@@ -68,7 +68,7 @@
 
             <div class="row">
                 <div class="col-4">
-                    <a href="linkproduk">
+                    <a href="{{route('anggota.paylater.index')}}">
                         <img src="{{asset('theme')}}/assets/icons/bayar.png" class="image-icons">
                     </a>
                     <p class="text-atas">JIMPay Later</p>

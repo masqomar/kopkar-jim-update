@@ -9,18 +9,37 @@ class PayLater extends Model
 {
     use HasFactory;
 
-    protected $table = 'pay_later';
+    protected $table = 'paylater';
     public $timestamps = false;
 
     protected $fillable = [
-        'no_transaksi',
         'user_id',
-        'produk_id',
-        'vendor',
-        'rekening',
-        'nominal',
-        'tanggal',
+        'kode_paylater',
+        'paylater_provider_id',
+        'bank_id',
+        'no_rekening',
+        'atas_nama',
+        'tanggal_pengajuan',
         'status',
-        'bukti'
+        'nominal_paylater',
+        'jangka_waktu',
+        'tgl_selesai',
+        'catatan',
+        'bukti_bayar'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function paylaterProvider()
+    {
+        return $this->belongsTo(paylaterProvider::class, 'paylater_provider_id', 'id');
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
 }

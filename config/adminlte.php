@@ -305,7 +305,7 @@ return [
         ['header' => 'MENU KOPERASI'],
         [
             'text'    => 'Produk Koperasi',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-clipboard-list',
             'submenu' => [
                 [
                     'text' => 'Jenis Simpanan',
@@ -321,7 +321,7 @@ return [
         ],
         [
             'text'    => 'Simpanan Anggota',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-wallet',
             'submenu' => [
                 [
                     'text' => 'Simpanan Wajib',
@@ -337,7 +337,7 @@ return [
         ],
         [
             'text'    => 'Keuangan',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-dollar-sign',
             'submenu' => [
                 [
                     'text' => 'Jenis Akun',
@@ -363,7 +363,7 @@ return [
                 ],
                 [
                     'text' => 'Topup Anggota',
-                    'icon'    => 'fas fa-fw fa-share',
+                    'icon'    => 'fas fa-hand-holding-usd',
                     'url'  => '/topup-anggota',
                 ],
             ],
@@ -371,17 +371,22 @@ return [
         [
             'text'    => 'Pembiayaan',
             'url'     => '/pembiayaan',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fa fa-credit-card',
+        ],
+        [
+            'text'    => 'Paylater',
+            'url'     => '/paylater-anggota',
+            'icon'    => 'fas fa-handshake',
         ],
         [
             'text'    => 'Angsuran',
             'url'     => '/angsuran',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-money-bill-wave-alt',
         ],
         [
             'text'    => 'Gallery',
             'url'     => '/gallery',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fa fa-image',
         ],
 
         ['header' => 'MANAGEMENT USER'],

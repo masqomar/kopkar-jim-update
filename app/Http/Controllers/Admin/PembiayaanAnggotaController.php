@@ -9,6 +9,7 @@ use App\Models\TransaksiPembiayaanAnggota;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PembiayaanAnggotaController extends Controller
 {
@@ -58,21 +59,26 @@ class PembiayaanAnggotaController extends Controller
         $tgl_pembiayaan = Carbon::now();
         $tgl_selesai = Carbon::now()->addMonths($request->jangka_waktu);
 
-        $inserten = PembiayaanAnggota::create([
-            'kode_pembiayaan' => $request->kode_pembiayaan,
-            'jumlah_pembiayaan' => $request->jumlah_pembiayaan,
-            'jangka_waktu' => $request->jangka_waktu,
-            'tgl_pembiayaan' => $tgl_pembiayaan,
-            'tgl_selesai' => $tgl_selesai,
-            'status_pembiayaan' => 'Belum Lunas',
-        ]);
+        DB::transaction(
+            function () use ($request, $tgl_pembiayaan, $tgl_selesai, $id) {
 
-        PengajuanPembiayaan::where('id', $id)
-            ->update([
-                'nama_barang' => $request->nama_barang,
-                'spek_barang' => $request->spek_barang,
-                'status_pengajuan' => 'Disetujui'
-            ]);
+                PembiayaanAnggota::create([
+                    'kode_pembiayaan' => $request->kode_pembiayaan,
+                    'jumlah_pembiayaan' => $request->jumlah_pembiayaan,
+                    'jangka_waktu' => $request->jangka_waktu,
+                    'tgl_pembiayaan' => $tgl_pembiayaan,
+                    'tgl_selesai' => $tgl_selesai,
+                    'status_pembiayaan' => 'Belum Lunas',
+                ]);
+
+                PengajuanPembiayaan::where('id', $id)
+                    ->update([
+                        'nama_barang' => $request->nama_barang,
+                        'spek_barang' => $request->spek_barang,
+                        'status_pengajuan' => 'Disetujui'
+                    ]);
+            }
+        );
 
         // dd($inserten);
         return redirect()->route('pembiayaan.index')
